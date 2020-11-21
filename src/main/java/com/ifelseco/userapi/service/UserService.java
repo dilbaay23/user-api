@@ -3,6 +3,7 @@ package com.ifelseco.userapi.service;
 import com.ifelseco.userapi.entity.User;
 import com.ifelseco.userapi.entity.UserRole;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface UserService {
@@ -11,5 +12,6 @@ public interface UserService {
     User save(User user);
     User findByUsername(String username);
     User findByEmail(String email);
+    //Optional<User> findById(Long id);
 
 }

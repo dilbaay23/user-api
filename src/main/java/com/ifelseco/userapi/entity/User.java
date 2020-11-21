@@ -33,7 +33,8 @@ public class User implements UserDetails , Serializable {
     private boolean enabled;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @EqualsAndHashCode.Exclude private Set<UserRole> userRoles=new HashSet<>();
+    @EqualsAndHashCode.Exclude
+    private Set<UserRole> userRoles=new HashSet<>();
 
 
     @Override
