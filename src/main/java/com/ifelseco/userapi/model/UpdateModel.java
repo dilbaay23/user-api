@@ -6,10 +6,11 @@ import lombok.Data;
 public class UpdateModel {
 
         private BaseResponseModel responseModel;
+
+        private String firstName;
+        private String lastName;
+        private String userName;
         private String email;
-        private String firstname;
-        private String lastname;
-        private String username;
 
     }
 

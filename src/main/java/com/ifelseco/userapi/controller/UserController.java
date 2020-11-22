@@ -15,15 +15,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.security.Principal;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/user")
+
 public class UserController {
 
     private ConfirmUserService confirmUserService;
@@ -87,55 +89,8 @@ public class UserController {
 
     }
 
-    //Update User
-    @PutMapping
-    public ResponseEntity updateUserInfo(@RequestBody HashMap<String, Object> mapper
-    ) throws Exception{
-
-        String email = (String) mapper.get("email");
-        String firstName = (String) mapper.get("firstName");
-        String lastName = (String) mapper.get("lastName");
 
 
-
-        User currentUser = userService.findByEmail(email);
-
-        // is email exist?
-        if(currentUser == null) {
-            return new ResponseEntity("Email is not found", HttpStatus.BAD_REQUEST);
-        }
-//        if(currentUser.isEnabled() == false) {
-//            return new ResponseEntity("Not Confirmed User", HttpStatus.BAD_REQUEST);
-//        }
-
-
-
-        }else {
-
-            User savingUser=modelMapper.map(registerModel,User.class);
-            savingUser.setPassword(SecurityUtility.passwordEncoder().encode(savingUser.getPassword()));
-
-            Role role=new Role();
-            role.setRoleId(1);
-            role.setName("ROLE_USER");
-
-            Set<UserRole> userRoles=new HashSet<>();
-            userRoles.add(new UserRole(savingUser,role));
-
-            try {
-                savingUser=userService.createUser(savingUser,userRoles);
-
-                return new ResponseEntity("User registered successfully, userId: "+savingUser.getId(), HttpStatus.OK);
-
-            }catch(Exception e) {
-                return new ResponseEntity("Db Error", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-
-        }
-
-
-
-    }
 
 
 
